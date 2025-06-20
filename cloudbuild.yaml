@@ -9,6 +9,7 @@ steps:
     args: ['push', 'us-central1-docker.pkg.dev/surnede-cloudrun-app/order-docker-repo/order-service:$SHORT_SHA']
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
     args:
       - run
       - deploy
