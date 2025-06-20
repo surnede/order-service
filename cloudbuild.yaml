@@ -1,16 +1,16 @@
 steps:
   # Build and Push Order Service
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/order-docker-repo/order-service:latest', './order-service']
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/surnede-cloudrun-app/order-docker-repo/order-service:latest', './order-service']
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/order-docker-repo/order-service:latest']
+    args: ['push', 'us-central1-docker.pkg.dev/surnede-cloudrun-app/order-docker-repo/order-service:latest']
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     args:
       [
         'run', 'deploy', 'order-service',
-        '--image', 'us-central1-docker.pkg.dev/$PROJECT_ID/order-docker-repo/order-service:latest',
+        '--image', 'us-central1-docker.pkg.dev/surnede-cloudrun-app/order-docker-repo/order-service:latest',
         '--region', 'us-central1',
         '--platform', 'managed',
         '--allow-unauthenticated'
