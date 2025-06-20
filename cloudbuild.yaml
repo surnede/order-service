@@ -1,4 +1,7 @@
 steps:
+  - name: 'gcr.io/cloud-builders/mvn'
+    args: ['clean', 'package', '-DskipTests']
+    
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'us-central1-docker.pkg.dev/surnede-cloudrun-app/order-docker-repo/order-service:$SHORT_SHA', '.']
 
