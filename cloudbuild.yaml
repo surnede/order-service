@@ -1,19 +1,22 @@
 steps:
-  # Build and Push Order Service
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/surnede-cloudrun-app/order-docker-repo/order-service:latest', './order-service']
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/surnede-cloudrun-app/order-docker-repo/order-service:$SHORT_SHA', '.']
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/surnede-cloudrun-app/order-docker-repo/order-service:latest']
+    args: ['push', 'us-central1-docker.pkg.dev/surnede-cloudrun-app/order-docker-repo/order-service:$SHORT_SHA']
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     args:
-      [
-        'run', 'deploy', 'order-service',
-        '--image', 'us-central1-docker.pkg.dev/surnede-cloudrun-app/order-docker-repo/order-service:latest',
-        '--region', 'us-central1',
-        '--platform', 'managed',
-        '--allow-unauthenticated'
-      ]
+      - run
+      - deploy
+      - order-service
+      - --image=us-central1-docker.pkg.dev/surnede-cloudrun-app/order-docker-repo/order-service:$SHORT_SHA
+      - --region=us-central1
+      - --platform=managed
+      - --allow-unauthenticated
+
+images:
+  - us-central1-docker.pkg.dev/surnede-cloudrun-app/order-docker-repo/order-service:$SHORT_SHA
 options:
   logging: CLOUD_LOGGING_ONLY
+
